@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="calccss.css">
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="calc">
+            <div class="screen"></div>
+            <div class="padd">
+                <div class="touch">
+                    <span class="AC">AC</span>
+                    <span class="+">+</span>
+                    <span class="-">-</span>
+                    <span class="*">*</span>
+                    <span class="/">/</span>
+                    <span class="=">=</span>
+                    
+
+                </div>
+                <div class="numbers"> 
+                    <span >0</span>
+                    <span >1</span>
+                    <span >2</span>
+                    <span >3</span>
+                    <span >4</span>
+                    <span >5</span>
+                    <span >6</span>
+                    <span >7</span>
+                    <span >8</span>
+                    <span >9</span>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        /* Je séléctionne la balise où je veux que mon calcul s'affiche */
+        let chiffre=document.querySelector(".screen");
+        /* J'utilise l'écouteur d'évenement de mon document pour pouvoir récupéré l'élément que j'aurais sélectionné sur la calculatrice */
+        document.addEventListener('click', function(e) {
+            /* Le e représente l'évenement, on l'appelle e mais on aurait pu l'appeller n'importe comment */
+            e = e || window.event;
+            /* J'affine mon évenement de manière plus précise en allant pour récupéré mon contenu html à l'intérieur de ma balise */
+           var target = e.target || e.srcElement,
+                text = target.textContent || target.innerText;  
+                /* sign est le contenu que je vais avoir dans ma class screen */
+                let sign =chiffre.textContent;
+                /* j'utilise substring sur ma variable sign pour effectuer des vérifications afin que la calculette soit conforme */
+                let str=sign.substring(sign.length - 1);
+                console.log(str)
+                /* D'abord je vérifie si le clique que je vais effectuer( c'est à dire l'évenement clique) est bien un signe de calcul */
+                if(text=='+'|| text=='-'|| text=='*' || text==='/'){
+                    /* ici je vérifie que l'on a pas 2 signe de calcul qui se suivent sinon ça va merdé du coup si c'est le cas rien ne se passe sinon bah on ajoute les chiffres sur lequel j'ai cliqué */
+                    if(str=='+'|| str=='-'|| str=='*' || str==='/'){
+                        chiffre.innerHTML =chiffre.textContent
+                    }
+
+                    else{
+                        chiffre.innerHTML +=text
+                    }
+                }
+                /* Si on clique sur = le calcul s'effectue grace à la fonction eval qui va calculer tout calcul automatiquement et on va remplacer le calcul par le résultat*/
+                else if(text=="="){
+                    sign=eval(sign)
+                    console.log(sign)
+                    chiffre.innerHTML =sign
+                }
+                else if(text=="AC"){
+                    /* Si on appuie sur AC eh bah on efface tout et on repart à zéro */
+                    chiffre.innerHTML = " "
+                }
+                else{
+                    chiffre.innerHTML +=text
+                }
+                
+                
+                
+                	
+                
+                
+/* 
+                console.log(chiffre.textContent) */
+        }, false);
+    </script>
+</html>
